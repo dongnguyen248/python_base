@@ -4,7 +4,7 @@
     <form action="#">
         <input type="text" v-model="msvNew" placeholder="New MSV">
         <input type="text" v-model="svNew" placeholder="New Student">
-        <button @click="AddNew()">Add</button>
+        <button @click="AddNew() ">Add</button>
     </form>
 
     <table style="width:100% " border="1px solid #ebebeb">
@@ -15,7 +15,9 @@
         <tr v-for="sv in SVs" :key="sv.MSV">
             <td>{{sv.MSV}}</td>
             <td>{{sv.name}}</td>
+            <td @click="Delsv(sv)"><button>Del</button></td>
         </tr>
+
     </table>
 </div>
 </template>
@@ -51,38 +53,28 @@ export default {
             ],
             svNew: '',
             msvNew: '',
-            newarray: {},
+            newSV: {name:'',MSV:''},
+
         }
     },
     methods: {
-
+  
         AddNew() {
-            var svNew = this.svNew;
-            var msvNew = this.msvNew;
-            var newarray = this.newarray;
-           newarray = {
-                MSV: msvNew,
-                name: svNew,
-            };
-            window.console.log(newarray);
-
-            // for (var i = 0; i < this.SVs.length; i++) {
-            // window.console.log(this.SVs);
-
-            if (this.SVs.indexOf(newarray) != -1) {
+            var newSV = this.newSV;
+            this.newSV.name = this.svNew;
+            this.newSV.MSV = this.msvNew;
+            if ((this.SVs.indexOf(newSV)) != -1) {
                 alert("Already exist!");
                 return;
 
             }
-            this.SVs.push(newarray);
+            this.SVs.push(newSV);
 
-            window.console.log(this.SVs);
-            // window.console.log(this.newarray);
-            window.console.log(this.SVs.indexOf(newarray));
-
-            // }*/
-
+        },
+        Delsv(sv) {
+            this.SVs.splice(sv);
         }
+
     }
 }
 </script>
